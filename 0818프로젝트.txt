@@ -1,0 +1,105 @@
+pdao의 arraylist menu를 리턴값으로 받아서
+
+각하위메뉴의 arrayList에 참조하고
+
+menu안의 pno 와 pname을 while문으로 출력
+
+menu 값을 입력받아서 cmeal index의 pno를 가져와서
+
+string order[0] 입력하고
+
+구매수량을 입력한다.
+
+구매수량을 string order[1]에 입력하고 
+basket 리스트에 저장한다.
+
+이벤트 1=진행, 2=X
+
+구매하기
+
+basket에 담겨있는 order의 pno,orderCount를 이용한다.
+pno로 product의 pname,price,stock,event를 가져온다. -dao
+가져온 값들을 로컬변수에 담고
+price와 orderCount를 곱해서 제품별 합산금액을 만들고
+제품별 합산금액을 합쳐서 totalprice를 만든다. 
+event 값이 1이면 이벤트를 진행하는것으로 orderCount만큼 추가로 증정하고
+"추가증정상품입니다." 문구와 함께 orderCount만큼의 수량을 
+"증정품"문구를 제품명앞에 붙이고 구매내역에 action
+
+회원번호를 입력받는다
+
+
+결제 선택 
+1.현금
+-지불금액입력받는다
+ 지불금액-totalprice를 구한다.
+-음수일경우에는 모자란금액을 알려주고 추가지불금액을 입력받는다.
+
+
+2.카드
+카드번호를 입력받고
+등록된 카드번호일때 결제완료 
+
+consoleUtil.barcode();로 영수증 번호 출력한다.
+
+결제후에 update문을 사용하여 stock에서 orderCount*2를 감소시킨다.
+결제완료후 basket을 비운다. 
+
+basket.clear();
+
+public int insertNewMember(Member newMember) {
+		int insertCount = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql="INSERT INTO member VALUES(member_id_seq.nextval,?,?,?,?,?)";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, newMember.getName());
+			pstmt.setString(2, newMember.getAddr());
+			pstmt.setString(3, newMember.getNation());
+			pstmt.setString(4, newMember.getEmail());
+			pstmt.setInt(5, newMember.getAge());
+			insertCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)
+					close(pstmt);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+
+//바코드 랜덤으로 생성
+   public String barcode() {
+      Random rd = new Random();
+      String barcode = null;
+      for(int i=0; i<6; i++) {
+         int a = rd.nextInt(10)+1;
+         barcode = "" +a;
+      }
+      if(duplicate(barcode)) {
+         return barcode;
+      }
+      return barcode();
+   }
+   //바코드 중복 검사
+   public boolean duplicate(String barcode) {
+      int dic = 
+       purcahse_listDAO.getBarcode(barcode);
+      if(dic==1) {
+         return true;
+      }
+      else {
+         return false;
+      }
+   }
+   //결제시간 
+   public String time() {
+      SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+       SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss a");
+
+       return ""+date+time;
+   }
