@@ -19,12 +19,12 @@ public class StockAddAction implements Action
 		
 		if(isAddSuccess)
 		{
-			System.out.println(newStock.getSno() + " 吏??젏?뿉 " + newStock.getPno() + " ?젣?뭹 ?젣怨? 異붽? ?꽦怨?");
+			System.out.println(newStock.getSno() + " 지점의 " + newStock.getPno() + " 재고수량 추가 성공");
 		}
 		
 		else
 		{
-			System.out.println(newStock.getSno() + " 吏??젏?뿉 " + newStock.getPno() + " ?젣?뭹 ?젣怨? 異붽? ?떎?뙣");
+			System.out.println(newStock.getSno() + " 지점의 " + newStock.getPno() + " 재고수량 추가 실패");
 		}
 	}
 }

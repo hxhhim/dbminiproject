@@ -1,5 +1,8 @@
 package util;
 
+import static db.jdbcUtil.getConnection;
+
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -9,14 +12,19 @@ import java.util.Scanner;
 
 import java.util.Scanner;
 
+import vo.Member;
 import vo.Product;
 import vo.Stock;
 import vo.Store;
+import DAO.MemberDAO;
 import DAO.purcahse_listDAO;
 
 public class consoleUtil {
 	purcahse_listDAO listDAO = new purcahse_listDAO();
 	Scanner sc = new Scanner(System.in);
+	Connection con = getConnection();
+	MemberDAO memberDAO = new MemberDAO(con);
+	
 	public String barcode() {
 	      SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMddHHmmss");
 	            
@@ -199,6 +207,53 @@ public class consoleUtil {
 			int stock = Integer.parseInt(scanner.nextLine());
 			
 			return new Stock(pno, stock);
+		}
+		public Member getNewMember(Scanner sc) {
+			System.out.println("등록할 회원 정보를 입력하세요");
+			System.out.print("이름: ");
+			String name = sc.nextLine();
+			
+			System.out.print("전화번호: ");
+			String phone = sc.nextLine();
+			
+			int mno = member_mno_seq();
+			return new Member(name,phone,mno);
+		}
+		
+		public int member_mno_seq(){
+			int mno = 1;
+			int preMno = memberDAO.mno(con);
+			if(preMno == 0) {
+				return mno;
+			}
+			else {
+				return ++preMno;
+			}
+		}
+		
+//		public int getDeleteId(Scanner sc) {
+//			System.out.println("삭제할회원의 이름을 입력해주세요: ");
+//			String name = sc.nextLine();
+//			int demno = memberDAO.getMno(name);
+//			return demno;
+//		}
+		   
+		public Member getupMember(Scanner sc) {
+			System.out.println("수정할 회원 정보를 입력하세요");
+			System.out.print("이름: ");
+			String name = sc.nextLine();
+			
+			System.out.print("전화번호: ");
+			String phone = sc.nextLine();
+			int mno = updateId(name);
+			return new Member(name,phone,mno);
+		}
+		
+		public int updateId(String name) {
+//			System.out.println("수정할 회원의  이름을 입력해주세요: ");
+//			String name = sc.nextLine();
+			int updateMno = memberDAO.getMno(name);
+			return updateMno;
 		}
 }
 

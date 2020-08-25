@@ -29,7 +29,7 @@ public class ProductDAO {
 			
 			String sql = "INSERT INTO product "
 					+ "(pno, category, comp, pname, price, shelflife, event) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
 			try
 			{
@@ -74,24 +74,24 @@ public class ProductDAO {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
-			String sql1 = "SELECT * FROM product WHERE pno = ?";
+//			String sql1 = "SELECT * FROM product WHERE pno = ?";
 			
-			String sql2 = "UPDATE product (category, comp, pname, price, shelflife, event) SET category = ?, comp = ?, "
-					+ "pname = ?, price = ?, shelflife = ?, event = ? WHERE pno = ?";
-			
+			String sql2 = "UPDATE product SET category=?, comp=?,"
+					+ " pname=?, price=?, shelflife=?, event=? WHERE pno=? ";
+		
 			try
 			{
-				pstmt = con.prepareStatement(sql1);
-				pstmt.setString(1, pno);
-				rs = pstmt.executeQuery();
-				
-				while(rs.next())
-				{
-					System.out.println("pno : " + rs.getString(1) + ", category : " + rs.getString(2)
-							+ ", comp : " + rs.getString(3) + ", pname : " + rs.getString(4)
-							+ ", price : " + rs.getInt(5) + ", shelflife : " + rs.getString(6)
-							+ ", event : " + rs.getInt(7));
-				}
+//				pstmt = con.prepareStatement(sql1);
+//				pstmt.setString(1, pno);
+//				rs = pstmt.executeQuery();
+//				
+//				while(rs.next())
+//				{
+//					System.out.println("pno : " + rs.getString(1) + ", category : " + rs.getString(2)
+//							+ ", comp : " + rs.getString(3) + ", pname : " + rs.getString(4)
+//							+ ", price : " + rs.getInt(5) + ", shelflife : " + rs.getString(6)
+//							+ ", event : " + rs.getInt(7));
+//				}
 				
 				pstmt = con.prepareStatement(sql2);
 				pstmt.setString(1, updateProduct.getCategory());
@@ -100,7 +100,7 @@ public class ProductDAO {
 				pstmt.setInt(4, updateProduct.getPrice());
 				pstmt.setString(5, updateProduct.getShelflife());
 				pstmt.setInt(6, updateProduct.getEvent());
-				pstmt.setString(7, updateProduct.getPno());
+				pstmt.setString(7, pno);
 				updateCount = pstmt.executeUpdate();
 			}
 			
@@ -113,11 +113,7 @@ public class ProductDAO {
 			{
 				try
 				{
-					if(rs != null)
-					{
-						close(rs);
-					}
-					
+										
 					if(pstmt != null)
 					{
 						close(pstmt);

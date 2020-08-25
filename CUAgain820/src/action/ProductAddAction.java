@@ -20,12 +20,12 @@ public class ProductAddAction implements Action
 		
 		if(isAddSuccess)
 		{
-			System.out.println(newProduct.getPname() + " ?牅?拡?潣 ?爼氤? 於旉? ?劚瓿?");
+			System.out.println(newProduct.getPname() + "鞝滍拡鞝曤炒 於旉皜 靹标车");
 		}
 		
 		else
 		{
-			System.out.println(newProduct.getPname() + " ?牅?拡?潣 ?爼氤? 於旉? ?嫟?尐");
+			System.out.println(newProduct.getPname() + "鞝滍拡鞝曤炒 於旉皜 靹标车");
 		}
 	}
 	

@@ -94,16 +94,15 @@ public class storeDAO {
 		int updateCount = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = "UPDATE store SET (sname, address, admin)"
-				+ "sname = ?, address = ?, admin = ? WHERE sno = ?";
+		String sql = "UPDATE store SET sname = ?, address = ?, admin = ? WHERE sno = ?";
 		
 		try
 		{
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, updateStore.getSname());
 			pstmt.setString(2, updateStore.getAddress());
-			pstmt.setString(2, updateStore.getAdmin());
-			pstmt.setString(4, updateStore.getSno());
+			pstmt.setString(3, updateStore.getAdmin());
+			pstmt.setString(4, sno);
 			updateCount = pstmt.executeUpdate();
 		}
 		

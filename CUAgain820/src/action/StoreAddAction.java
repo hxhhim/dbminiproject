@@ -19,12 +19,12 @@ public class StoreAddAction implements Action
 		
 		if(isAddSuccess)
 		{
-			System.out.println(newStore.getSname() + " ì§?? ?˜ ? •ë³? ì¶”ê? ?„±ê³?");
+			System.out.println(newStore.getSname() + "ÁöÁ¡Á¤º¸ Ãß°¡ ¼º°ø");
 		}
 		
 		else
 		{
-			System.out.println(newStore.getSname() + " ì§?? ?˜ ? •ë³? ì¶”ê? ?‹¤?Œ¨");
+			System.out.println(newStore.getSname() + "ÁöÁ¡Á¤º¸ Ãß°¡ ½ÇÆÐ");
 		}
 	}
 }

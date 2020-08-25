@@ -1,5 +1,6 @@
 package DAO;
 
+import static db.jdbcUtil.close;
 import static db.jdbcUtil.commit;
 import static db.jdbcUtil.getConnection;
 import static db.jdbcUtil.rollback;
@@ -52,6 +53,16 @@ public class purcahseDAO {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try{
+				if(rs != null){
+					close(rs);
+				 }if(pstmt != null)	{
+					close(pstmt);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		System.out.println("\t"+"총합계:"+totalpay);
 		
@@ -83,8 +94,7 @@ public class purcahseDAO {
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		int totalpay=0;
-		
-		
+				
 		try {
 		
 		for(int i=0;i<basket.size();i++) {
@@ -152,24 +162,92 @@ public class purcahseDAO {
 		plist2[4] = Integer.toString(totalpay);
 		plist2[5] = pway;
 		
-		
-		System.out.println(paytime);
-		System.out.println(barcode);
-		System.out.println(posno);
-		System.out.println(mno);
-		System.out.println(totalpay);
-		System.out.println(pway);
-		
-		for(String[] s:list) {
-			System.out.println(s);	
-		}
+			
 		purchaselistup();
 		buylistup();
 		stockup();
-		
-		
-		
-		
+		purchaselist(barcode);
+				
+	}
+	public void purchaselist(String barcode) {
+		 PreparedStatement pstmt = null;
+		 ResultSet rs = null;
+		 Connection con = getConnection();
+		 
+		 String sql = "SELECT paytime,pos_num,mno,totalpay,payway FROM purchase_list WHERE barcode =?";
+		 
+		 try {
+			 pstmt = con.prepareStatement(sql);
+			 pstmt.setString(1, barcode);
+			 rs= pstmt.executeQuery();
+			 while(rs.next()){		
+			 String paytime =rs.getString(1);
+			 String pos_num =rs.getString(2);
+		  	 int mno =rs.getInt(3);
+			 int totalpay =rs.getInt(4);
+			 String payway =rs.getString(5);
+			 
+			 System.out.println();
+			 System.out.println("=====영수증=====");
+			 System.out.println("구매시간: "+paytime);
+			 System.out.println("영수증번호: "+barcode);
+			 if(mno==1) {
+				 System.out.println("비회원구입");
+			 }else {
+				 System.out.println("회원번호: "+mno); 
+			 }
+			 buylist(barcode);
+			 System.out.println("총 금액: "+totalpay);
+			 System.out.println("결제방법: "+payway);
+			 System.out.println("====감사합니다====");
+			 System.out.println();
+			 } 			 
+			  
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+		 }finally{
+				try{
+					if(rs != null){
+						close(rs);
+					 }if(pstmt != null)	{
+						close(pstmt);
+					}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+	}
+	public void buylist(String barcode) {
+		 PreparedStatement pstmt = null;
+		 ResultSet rs = null;
+		 Connection con = getConnection();
+		 
+		 String sql = "SELECT productname,paysum,orderCount FROM buy WHERE barcode =?";
+		 
+		 try {
+			 pstmt = con.prepareStatement(sql);
+			 pstmt.setString(1, barcode);
+			 rs= pstmt.executeQuery();
+			 while(rs.next()){		
+			 String productname =rs.getString(1);
+			 int paysum =rs.getInt(2);
+			 int orderCount =rs.getInt(3);
+			 			 
+			 System.out.println(productname+" 수량: "+orderCount+" 합계: "+paysum);
+			 }
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+		 }finally{
+				try{
+					if(rs != null){
+						close(rs);
+					 }if(pstmt != null)	{
+						close(pstmt);
+					}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
 	}
 	public int purchaselistup() {
 		Connection con = getConnection();
@@ -199,6 +277,16 @@ public class purcahseDAO {
 			insertCount = pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try{
+				if(rs != null){
+					close(rs);
+				 }if(pstmt != null)	{
+					close(pstmt);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		if(insertCount>0) {
 			commit(con);
@@ -234,6 +322,16 @@ public class purcahseDAO {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
+		}finally{
+			try{
+				if(rs != null){
+					close(rs);
+				 }if(pstmt != null)	{
+					close(pstmt);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		if(insertCount>0) {
 			commit(con);
@@ -268,6 +366,16 @@ public class purcahseDAO {
 				}
 			}catch(SQLException e) {
 				e.printStackTrace();
+			}finally{
+				try{
+					if(rs != null){
+						close(rs);
+					 }if(pstmt != null)	{
+						close(pstmt);
+					}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 			if(insertCount>0) {
 				commit(con);

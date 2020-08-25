@@ -21,12 +21,12 @@ public class StoreUpdateAction implements Action
 		
 		if(isUpdateSuccess)
 		{
-			System.out.println(updateStore.getSname() + " 吏??젏?쓽 ?젙蹂? ?닔?젙 ?꽦怨?");
+			System.out.println(updateStore.getSname() + "지점 정보 수정 성공");
 		}
 		
 		else
 		{
-			System.out.println(updateStore.getSname() + " 吏??젏?쓽 ?젙蹂? ?닔?젙 ?떎?뙣");
+			System.out.println(updateStore.getSname() + "지점 정보 수정 실패");
 		}
 	}
 }

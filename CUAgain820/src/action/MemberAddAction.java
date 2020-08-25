@@ -2,14 +2,14 @@ package action;
 
 import java.util.Scanner;
 
-import vo.Member;
-import util.ConsolUtil;
 import svc.MemberAddService;
+import util.consoleUtil;
+import vo.Member;
 
-public class MemberAddAction {
+public class MemberAddAction implements Action{
 	public void execute(Scanner sc) throws Exception {
 		//System.out.println("회원등록");
-		ConsolUtil cu = new ConsolUtil();
+		consoleUtil cu = new consoleUtil();
 		Member newMember = cu.getNewMember(sc);
 	
 		MemberAddService memberAddService = new MemberAddService();

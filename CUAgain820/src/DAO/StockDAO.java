@@ -22,7 +22,7 @@ public class StockDAO
 		PreparedStatement pstmt = null;
 		
 		String sql = "INSERT INTO stock "
-				+ "VALUES (?, ?, ?, ?)";
+				+ "VALUES (?, ?, ?)";
 		
 		try
 		{
@@ -62,15 +62,14 @@ public class StockDAO
 		int updateCount = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = "UPDATE stock SET (pno, stock) "
-				+ "pno = ?, stock = ? WHERE sno = ?";
+		String sql = "UPDATE stock SET stock = ? WHERE sno = ? AND pno = ?";
 		
 		try
 		{
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, updateStock.getPno());
-			pstmt.setInt(2, updateStock.getStock());
-			pstmt.setString(3, updateStock.getSno());
+			pstmt.setInt(1, updateStock.getStock());
+			pstmt.setString(2, sno);
+			pstmt.setString(3, updateStock.getPno());
 			updateCount = pstmt.executeUpdate();
 		}
 		

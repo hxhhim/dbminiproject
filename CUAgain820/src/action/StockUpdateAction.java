@@ -22,12 +22,12 @@ public class StockUpdateAction implements Action
 		
 		if(isUpdateSuccess)
 		{
-			System.out.println(updateStock.getSno() + " ì§?? ?˜ ?¬ê³? ?ˆ˜? • ?„±ê³?");
+			System.out.println(updateStock.getSno() + "Àç°í¼öÁ¤ ¼º°ø");
 		}
 		
 		else
 		{
-			System.out.println(updateStock.getSno() + " ì§?? ?˜ ?¬ê³? ?ˆ˜? • ?‹¤?Œ¨");
+			System.out.println(updateStock.getSno() + "Àç°í¼öÁ¤ ½ÇÆĞ");
 		}
 	}
 	
