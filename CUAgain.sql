@@ -1,4 +1,4 @@
-DROP TABLE grade;
+﻿DROP TABLE grade;
 DROP TABLE buy;
 DROP TABLE purchase_list;
 DROP TABLE pos;
@@ -75,6 +75,7 @@ CONSTRAINT pos_sno_FK FOREIGN KEY(sno) REFERENCES store(sno)
 CREATE TABLE purchase_list 
 (
 barcode VARCHAR2(20),
+ploc VARCHAR2(20) CONSTRAINT purchase_list_ploc_NN NOT NULL,
 totalpay NUMBER CONSTRAINT purchase_list_payment_NN NOT NULL, 
 pos_num VARCHAR2(20) CONSTRAINT purchase_list_posno_NN NOT NULL,
 paytime VARCHAR2(30) CONSTRAINT purchase_list_paytime_NN NOT NULL,
@@ -90,7 +91,7 @@ CREATE TABLE buy
 productname VARCHAR2(30) CONSTRAINT buy_payproduct_NN NOT NULL,
 paysum NUMBER CONSTRAINT buy_payment_NN NOT NULL ,
 ordercount NUMBER CONSTRAINT buy_ordercount_NN NOT NULL,
-barcode VARCHAR2(20) CONSTRAINT buy_barcode_NN NOT NULL,
+barcode VARCHAR2(20) CONSTRAINT buy_barcode_NN NOT NULL
 ); 
 
 CREATE TABLE grade
