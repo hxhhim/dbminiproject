@@ -255,6 +255,11 @@ public class consoleUtil {
 			int updateMno = memberDAO.getMno(name);
 			return updateMno;
 		}
+		public int purchaselistID(Scanner sc) {
+			System.out.println("구매내역을 확인할 id번호를 입력하세요:");
+			int pid = Integer.parseInt(sc.nextLine());
+			return pid;
+		}
 }
 
 

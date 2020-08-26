@@ -5,6 +5,7 @@ import static db.jdbcUtil.commit;
 import static db.jdbcUtil.getConnection;
 import static db.jdbcUtil.rollback;
 import static view.mainView.basket;
+import static view.mainView.selsname;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -174,7 +175,7 @@ public class purcahseDAO {
 		 ResultSet rs = null;
 		 Connection con = getConnection();
 		 
-		 String sql = "SELECT paytime,pos_num,mno,totalpay,payway FROM purchase_list WHERE barcode =?";
+		 String sql = "SELECT paytime,pos_num,mno,totalpay,payway,ploc FROM purchase_list WHERE barcode =?";
 		 
 		 try {
 			 pstmt = con.prepareStatement(sql);
@@ -186,9 +187,11 @@ public class purcahseDAO {
 		  	 int mno =rs.getInt(3);
 			 int totalpay =rs.getInt(4);
 			 String payway =rs.getString(5);
-			 
+			 String ploc = rs.getString(6);
 			 System.out.println();
 			 System.out.println("=====영수증=====");
+			 System.out.println("구매지점: "+ploc);
+			 System.out.println("구매pos: "+pos_num);
 			 System.out.println("구매시간: "+paytime);
 			 System.out.println("영수증번호: "+barcode);
 			 if(mno==1) {
@@ -256,7 +259,7 @@ public class purcahseDAO {
 		int insertCount = 0;
 		
 		try {
-			String sql = "INSERT INTO purchase_list(paytime,barcode,pos_num,mno,totalpay,payway) VALUES(?,?,?,?,?,?) ";
+			String sql = "INSERT INTO purchase_list(paytime,barcode,pos_num,mno,totalpay,payway,ploc) VALUES(?,?,?,?,?,?,?) ";
 					
 			
 			String paytime = plist2[0];
@@ -273,6 +276,7 @@ public class purcahseDAO {
 			pstmt.setInt(4, mno);
 			pstmt.setInt(5, totalpay);
 			pstmt.setString(6, pway);
+			pstmt.setString(7, selsname);
 			
 			insertCount = pstmt.executeUpdate();
 		}catch(SQLException e) {
@@ -355,7 +359,7 @@ public class purcahseDAO {
 				String pno = list.get(i)[0];
 				int stock = Integer.parseInt(list.get(i)[4]);
 				stock = stock-(Integer.parseInt(list.get(i)[1]));
-				String sno= "CU01";			
+				String sno= selsname;			
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, stock);
