@@ -38,7 +38,7 @@ CONSTRAINT product_shelflife_CK CHECK (shelflife > nowtime)
 CREATE TABLE store
 (
 sno VARCHAR2(10),
-sname VARCHAR2(18) CONSTRAINT store_store_name_NN NOT NULL,
+sname VARCHAR2(30) CONSTRAINT store_store_name_NN NOT NULL,
 address VARCHAR2(30) CONSTRAINT store_address_NN NOT NULL,
 admin VARCHAR2(16) CONSTRAINT store_admin_NN NOT NULL,
 CONSTRAINT store_sno_PK PRIMARY KEY(sno),
