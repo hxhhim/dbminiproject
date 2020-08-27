@@ -13,4 +13,7 @@ public class PurchaseListService {
 	public void phistoryid(int pid) {
 		pdao.purchasehistoryid(con,pid);
 	}
+	public void purchaseHistoryDate(String[] pdate) {
+		pdao.purchaseHistoryDate(con, pdate);
+	}
 }

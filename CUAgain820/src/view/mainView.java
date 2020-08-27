@@ -10,8 +10,12 @@ import DAO.storeDAO;
 import action.Action;
 import action.MemberAddAction;
 import action.ProductAddAction;
+import action.ProductShelflifeAction;
 import action.ProductUpdateAction;
+import action.PurchaseHistoryAction;
+import action.PurchaseHistoryDateAction;
 import action.StockAddAction;
+import action.StockListAction;
 import action.StockUpdateAction;
 import action.StoreAddAction;
 import action.StoreUpdateAction;
@@ -198,10 +202,13 @@ public class mainView {
 		System.out.println("2.제품정보수정");
 		System.out.println("3.재고추가");
 		System.out.println("4.재고수정");
-		System.out.println("5.지점추가");
-		System.out.println("6.지점수정");
-		System.out.println("7.이전메뉴");
-		System.out.println("8.종      료");
+		System.out.println("5.재고조회");
+		System.out.println("6.지점추가");
+		System.out.println("7.지점수정");
+		System.out.println("8.매출조회");
+		System.out.println("9.유통기한조회");
+		System.out.println("10.이전메뉴");
+		System.out.println("11.종      료");
 		
 		int menu = Integer.parseInt(sc.nextLine());
 		
@@ -231,20 +238,36 @@ public class mainView {
 				}
 				break;
 			case 5:
-				action = new StoreAddAction();
+				action = new StockListAction();
 				if(action !=null) {
 					memberController.processorRequest(action, sc);
 				}
 				break;
 			case 6:
-				action = new StoreUpdateAction();
+				action = new StoreAddAction();
 				if(action !=null) {
 					memberController.processorRequest(action, sc);
 				}
 				break;
 			case 7:
-				storemenu();
+				action = new StoreUpdateAction();
+				if(action !=null) {
+					memberController.processorRequest(action, sc);
+				}
+				break;
 			case 8:
+				phistoryMenu();
+				break;
+			case 9:
+				action = new ProductShelflifeAction();
+				if(action !=null) {
+					memberController.processorRequest(action, sc);
+				}
+				break;
+			case 10:
+				storemenu();
+				break;
+			case 11:
 				System.out.println("프로그램을 종료합니다.");
 				System.exit(0);
 			default:
@@ -253,6 +276,42 @@ public class mainView {
 				
 				
 	}
+		
+		
+	}
+	public void phistoryMenu() {
+		Action action = null;
+		
+		System.out.println("==매출조회메뉴==");
+		System.out.println("1.회원별매출조회");
+		System.out.println("2.지점별월매출조회");
+	    System.out.println("3.이전메뉴");
+		System.out.println("4.종      료");
+		int menu = Integer.parseInt(sc.nextLine());
+		
+		switch(menu) {
+		case 1:
+			action = new PurchaseHistoryAction();
+			if(action !=null) {
+				memberController.processorRequest(action, sc);
+			}
+			break;
+		case 2:
+			action = new PurchaseHistoryDateAction();
+			if(action !=null) {
+				memberController.processorRequest(action, sc);
+			}
+			break;
+		case 3:
+			adminMenu();
+			break;
+		case 4:
+			System.out.println("프로그램을 종료합니다.");
+			System.exit(0);
+		default:
+			System.out.println("다시 입력하세요.");
+			break;
+		}
 		
 		
 	}

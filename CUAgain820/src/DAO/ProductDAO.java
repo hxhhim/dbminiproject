@@ -159,5 +159,35 @@ public class ProductDAO {
 		
 	return menu;
 	}
+	public void shelflifeProduct(Connection con,String scode) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql ="select pname ,shelflife, stock from product p, stock s where p.pno=s.pno and 2>(shelflife-sysdate)and sno=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, scode);
+			rs= pstmt.executeQuery();
+			while(rs.next()) {
+				String pname = rs.getString(1);
+				String shelflife = rs.getString(2);
+				int stock = rs.getInt(3);
+				System.out.println("제품명: "+pname+" 유통기한: "+shelflife+" 재고수량: "+stock);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs !=null) {
+					close(rs);
+				}if(pstmt !=null) {
+					close(pstmt);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 }

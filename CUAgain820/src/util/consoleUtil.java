@@ -20,10 +20,10 @@ import DAO.MemberDAO;
 import DAO.purcahse_listDAO;
 
 public class consoleUtil {
-	purcahse_listDAO listDAO = new purcahse_listDAO();
 	Scanner sc = new Scanner(System.in);
 	Connection con = getConnection();
 	MemberDAO memberDAO = new MemberDAO(con);
+//	purcahse_listDAO listDAO = new purcahse_listDAO(con);
 	
 	public String barcode() {
 	      SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMddHHmmss");
@@ -260,6 +260,22 @@ public class consoleUtil {
 			int pid = Integer.parseInt(sc.nextLine());
 			return pid;
 		}
+		public String[] phistorydate(Scanner sc) {
+			System.out.println("구매내역을 확인할 지점을 입력하세요:");
+			String ploc = sc.nextLine();
+			System.out.println("구매내역을 확인할 월을 입력하세요:(ex:2020/08)");
+			String paytime = sc.nextLine();
+			String[] pdate = new String[2];
+			pdate[0]=ploc;
+			pdate[1]=paytime;
+			return pdate;
+		}
+		public String storeCode(Scanner sc) {
+			System.out.println("지점코드를 입력하세요:");
+			String scode = sc.nextLine();
+			return scode;
+		}
+		
 }
 
 
