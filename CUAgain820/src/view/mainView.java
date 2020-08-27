@@ -29,6 +29,7 @@ public class mainView {
 	storeDAO sdao = new storeDAO();
 	purcahseDAO pudao = new purcahseDAO();
 	public static String selsname=null;
+	public static String selsno=null;
 	public static String posno=null;
 	MemberController memberController = new MemberController();
 	
@@ -72,20 +73,21 @@ public class mainView {
 		}while(!isStop);
 	 }
 	public void storemenu() {
-		ArrayList <String> sm = new ArrayList<>();
+		ArrayList <String[]> sm = new ArrayList<>();
 		sm = sdao.storelist();
 		LocalDateTime now = LocalDateTime.now();
 		
 		System.out.println("=======편 의  점=======");
 		int i=0;
 		for(i=0;i<sm.size();i++) {
-			System.out.println(""+(i+1)+"."+sm.get(i)+"");
+			System.out.println(""+(i+1)+"."+sm.get(i)[0]+"");
 		}
 		System.out.println(""+(i+1)+".종         료");
 		
 		int menu = Integer.parseInt(sc.nextLine());
 		
-		selsname=sm.get(menu-1);
+		selsname=sm.get(menu-1)[0];
+		selsno=sm.get(menu-1)[1];
 		
 		int nowtime = now.getHour();
 		if(nowtime%2!=0) {

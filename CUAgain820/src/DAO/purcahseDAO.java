@@ -6,7 +6,7 @@ import static db.jdbcUtil.getConnection;
 import static db.jdbcUtil.rollback;
 import static view.mainView.basket;
 import static view.mainView.selsname;
-
+import static view.mainView.selsno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,12 +32,13 @@ public class purcahseDAO {
 		try {
 		
 		for(int i=0;i<basket.size();i++) {
-			String sql = "SELECT pname,price,stock,event FROM product,stock WHERE product.pno=stock.pno and product.pno=?";
+			String sql = "SELECT pname,price,stock,event FROM product,stock WHERE product.pno=stock.pno and product.pno=? and sno=?";
 			//String sql = "SELECT pname,price,stock,event FROM product WHERE pno=?";
 			String pno = basket.get(i)[0];
 			String orderCount = basket.get(i)[1];
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, pno);
+			pstmt.setString(2, selsno);
 			rs= pstmt.executeQuery();
 			
 			while(rs.next()){
@@ -100,7 +101,7 @@ public class purcahseDAO {
 		
 		for(int i=0;i<basket.size();i++) {
 			String[] plist = new String[7];
-			String sql = "SELECT pname,price,stock,event FROM product,stock WHERE product.pno=stock.pno and product.pno=?";
+			String sql = "SELECT pname,price,stock,event FROM product,stock WHERE product.pno=stock.pno and product.pno=? and sno=?";
 		//	String sql = "SELECT pname,price,stock,event FROM product WHERE pno=?";
 			String pno = basket.get(i)[0];
 			String orderCount = basket.get(i)[1];
@@ -109,6 +110,7 @@ public class purcahseDAO {
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, pno);
+			pstmt.setString(2, selsno);
 			rs= pstmt.executeQuery();
 			
 			while(rs.next()){

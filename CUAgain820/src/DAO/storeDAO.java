@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import vo.Store;
 
 public class storeDAO {
-	static ArrayList<String> store = new ArrayList<>();
+	static ArrayList<String[]> store = new ArrayList<>();
 	
 	public ArrayList storelist() {
 		Connection con = getConnection();
@@ -24,14 +24,18 @@ public class storeDAO {
 		PreparedStatement pstmt = null;
 		store.clear();
 		
-		String sql = "SELECT sname FROM store";
+		String sql = "SELECT sname,sno FROM store";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				String sname = rs.getString(1);
-				store.add(sname);
+				String sno = rs.getString(2);
+				String[] selstore = new String[2];
+				selstore[0]=sname;
+				selstore[1]=sno;
+				store.add(selstore);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
